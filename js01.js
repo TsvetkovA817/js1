@@ -105,5 +105,108 @@ function sign(n)
  return 0;
 }
 
+//09
 
+var i=5;
 
+function f(a,b,c)
+{
+ if (a>b) return c;
+}
+
+typeof(i)  //'number'
+typeof(f)  //'function'
+
+i.valueOf() //5
+f.valueOf() //ƒ f(a,b,c)
+            //{
+            //if (a>b) return c;
+            //}
+var g = f; 
+document.write(g(2,1,3)) //3
+
+function f2(a){ 
+  return a*2;
+}
+function f3(a,f2){
+  return f2(a)+a+5;
+}
+document.write(f3(3,f2));   //14
+
+document.write(f2.toString()); //function f2(a){ return a*2; }
+
+//10
+
+function f5()
+{
+  a = new Array(f5.arguments.length);
+  for (i=0;  i<f5.arguments.length; i++)
+     a[i] = f5.arguments[i];
+  return a.sort();
+}
+
+f5(3,2,5);   //(3) [2, 3, 5]
+
+//11
+
+function f6()
+{ document.write("<BR>"+f6.caller+"<BR>"); }
+
+function f7()
+{ f6(); return 5; }
+
+f7();   //function f7() { f6(); return 5; }
+
+function f6()
+{ document.write("<BR>"+f6.caller.name+"<BR>"); }
+
+function f8()
+{ f6(); return 7; }  
+
+f8();   //f8
+
+//12
+
+function Rectangle(a,b,c,d)
+{
+    this.x0 = a;
+    this.y0 = b;
+    this.x1 = c;
+    this.y1 = d;
+
+    this.area = new Function("return Math.abs((this.x1-this.x0)*(this.y1-this.y0))");
+}
+
+r = new Rectangle(0,0,30,50);
+
+document.write("Площадь: "+r.area());   //Площадь: 1500
+
+for(v in r){
+    document.write("r."+v+" = <b>"+ r[v]+"</b><br>");
+}
+/*
+r.x0 = 0
+r.y0 = 0
+r.x1 = 30
+r.y1 = 50
+r.area = function anonymous( ) { return Math.abs((this.x1-this.x0)*(this.y1-this.y0)) }
+*/
+
+for(v in document)
+ document.write("document."+v+" = <B>"+ document[v]+"</B><BR>");
+
+ //13
+
+ with (document.form1)
+{
+  age.value=35;
+  speciality.value='Lorem';
+  window.alert(length);
+  submit();
+}
+
+with(Math) {
+    document.write(sin(3)*cos(10+PI/2));   //0.07677
+}
+
+//
