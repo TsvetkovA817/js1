@@ -1,0 +1,16 @@
+﻿<SCRIPT>
+   function show_MouseDown() { mshowRez.innerHTML+='мышь нажали (MouseDown)<br>'; }
+   function show_Click()     { mshowRez.innerHTML+='клик мыши (Click)<br>';       }
+   function show_MouseUp()   { mshowRez.innerHTML+='мышь отжали (MouseUp)<br>';   }
+   function show_DblClick()  { mshowRez.innerHTML+='двойной клик (DblClick)<br><br>'; }
+ </SCRIPT>
+
+<A HREF="javascript:void(0);"
+   onMouseDown="show_MouseDown();" onClick="show_Click();"
+   onMouseUp="show_MouseUp();"  onDblClick="show_DblClick();">Ссылка1</A>
+   
+<INPUT TYPE=button VALUE="Кнопка1"
+   onMouseDown="show_MouseDown();" onClick="show_Click();"
+   onMouseUp="show_MouseUp();"  onDblClick="show_DblClick();">
+
+<BR><SPAN ID="mshowRez"></SPAN>
