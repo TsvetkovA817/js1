@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Необходимо скопировать и вставить в данный скрипт все функции из 4 задания.
+Необходимо реализовать функцию:
+mathOperation(arg1, arg2, operation);
+Параметры:
+arg1 - первое число.
+arg2 - второе число.
+operation - строка, которая содержит один символ из: "+", "-", "*", "/".
+Функция mathOperation должна вернуть результат операции, который был передан в
+параметр operation для двух первых аргументов (arg1 и arg2).
+Функция mathOperation должна использовать для вычисления функции из 4 задания.
+
+Примеры вызова функции:
+console.log(mathOperation(5, 3, "+")); // 8
+console.log(mathOperation(5, 3, ":)")); // NaN
+
+Функции mathOperation всегда передаются корректные числа, проверки на NaN,
+Infinity делать не нужно, однако, в случае если был передан некорректный
+аргумент в параметр operation, необходимо вернуть NaN.
+
+Необходимо для всех функций прописать комментарии jsdoc https://jsdoc.app/.
+-->
+  <script>
+    "use strict";
+
+    /**
+   * Функция возвращает сумму двух чисел
+   * @function sum2
+   * @version 1.0.0
+   * @param {number} oper1 - Первый операнд.
+   * @param {number} oper2 - Второй операнд.
+   * @return {number}  Cумма операндов.
+   * @example
+   * // returns 5
+   * sum2(2, 3);
+   */
+    const sum2 = (oper1, oper2) => oper1 + oper2;
+
+
+    /**
+     * Функция возвращает разность двух чисел по модулю
+     * @function diff2
+     * @version 1.0.0
+     * @param {number} oper1 - Первый операнд.
+     * @param {number} oper2 - Второй операнд.
+     * @return {number}  Разность операндов.
+     * @example
+     * // returns 2  
+     * diff2(3, 5);
+     */
+    const diff2 = (oper1, oper2) => (oper1 >= oper2) ? oper1 - oper2 : oper2 - oper1;
+
+
+    /**
+     * Функция возвращает произведение двух чисел
+     * @function mult2
+     * @version 1.0.0
+     * @param {number} oper1 - Первый операнд.
+     * @param {number} oper2 - Второй операнд.
+     * @return {number}  Произведение операндов.
+     * @example
+     * // returns 15  
+     * diff2(3, 5);
+     */
+    function mult2(oper1, oper2) {
+      return oper1 * oper2;
+    }
+
+    /**
+     * Функция возвращает результат деления первого опреранда на второй опeранд
+     * @function div2
+     * @version 1.0.0
+     * @param {number} oper1 - Первый операнд.
+     * @param {number} oper2 - Второй операнд.
+     * @return {number}  Результат деления операндов.
+     * @example
+     * // returns 3  
+     * diff2(9, 3);
+     */
+    function div2(oper1, oper2) {
+      return oper1 / oper2;
+    }
+
+
+    /**
+     * Функция возвращает результат математической операции с двумя числами
+     * @function mathOperation
+     * @version 1.0.0
+     * @param {number} arg1 - Первый операнд.
+     * @param {number} arg2 - Второй операнд.
+     * @param {string} operation - Возможные операции "+", "-", "*", "/" 
+     * @return {number}  Результат вычислений или NaN, если операция не определена 
+     * @example
+     * // returns 8  
+     * mathOperation(5, 3, "+");
+     */
+    function mathOperation(arg1, arg2, operation) {
+      switch (operation) {
+        case "+":
+          return sum2(arg1, arg2);
+        case "-":
+          return diff2(arg1, arg2);
+        case "*":
+          return mult2(arg1, arg2);
+        case "/":
+          return div2(arg1, arg2);
+        default:
+          return NaN;
+      }
+    }
+
+
+
+    /**
+     * Функция выводит в консоль результат разных операций с двумя числами
+     * @function test
+     * @version 1.0.0
+     * @param {number} o1 - Первый операнд.
+     * @param {number} o2 - Второй операнд.
+     */
+    function test(o1, o2) {
+
+      console.log(mathOperation(o1, o2, "+"));  // =8
+      console.log(mathOperation(o1, o2, ":)")); // =NaN
+      console.log(mathOperation(o1, o2, "-"));  // =2
+      console.log(mathOperation(o1, o2, "*"));  // =15
+      console.log(mathOperation(o1, o2, "/"));  // 1.66
+
+      alert(`ru: Результат в консоли. Просмотреть по клавише F12.
+           \nen: Result in console. Check out press F12 key. 
+           \ncn: 结果在控制台.查看F12键．`);
+    }
+
+    test(5, 3);
+
+
+  </script>
+</body>
+
+</html>
