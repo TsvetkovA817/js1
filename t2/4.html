@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Необходимо реализовать четыре функции, каждая функция должна принимать по два
+числа и выполнять одну из операций (каждая функция выполняет одну из них):
+1. Сложение
+2. Разность
+3. Умножение
+4. Деление
+
+Необходимо сделать так, чтобы функция вернула число, например выражение
+`console.log(sum(2, 6));` должно вывести число 8 в консоль (sum - функция
+сложения в данном примере, ваши названия функций могут отличаться).
+
+Округлять значения, которые возвращают функции не нужно, однако, обратите
+внимание на разность, функция должна вычесть из большего числа меньшее, либо
+вернуть 0, если числа равны.
+
+Функциям всегда передаются корректные числа, проверки на NaN, Infinity делать
+не нужно.
+
+Необходимо для всех функций прописать комментарии jsdoc https://jsdoc.app/.
+-->
+  <script>
+    "use strict";
+
+    /**
+     * Функция возвращает сумму двух чисел
+     * @function sum2
+     * @version 1.0.0
+     * @param {number} oper1 - Первый операнд.
+     * @param {number} oper2 - Второй операнд.
+     * @return {number}  Cумма операндов.
+     * @example
+     * // returns 5
+     * sum2(2, 3);
+     */
+    const sum2 = (oper1, oper2) => oper1 + oper2;
+
+
+    /**
+     * Функция возвращает разность двух чисел по модулю
+     * @function diff2
+     * @version 1.0.0
+     * @param {number} oper1 - Первый операнд.
+     * @param {number} oper2 - Второй операнд.
+     * @return {number}  Разность операндов.
+     * @example
+     * // returns 2  
+     * diff2(3, 5);
+     */
+    const diff2 = (oper1, oper2) => (oper1 >= oper2) ? oper1 - oper2 : oper2 - oper1;
+
+
+    /**
+     * Функция возвращает произведение двух чисел
+     * @function mult2
+     * @version 1.0.0
+     * @param {number} oper1 - Первый операнд.
+     * @param {number} oper2 - Второй операнд.
+     * @return {number}  Произведение операндов.
+     * @example
+     * // returns 15  
+     * diff2(3, 5);
+     */
+    function mult2(oper1, oper2) {
+      return oper1 * oper2;
+    }
+
+    /**
+     * Функция возвращает результат деления первого опреранда на второй опреранд
+     * @function div2
+     * @version 1.0.0
+     * @param {number} oper1 - Первый операнд.
+     * @param {number} oper2 - Второй операнд.
+     * @return {number}  Результат деления операндов.
+     * @example
+     * // returns 3  
+     * diff2(9, 3);
+     */
+    function div2(oper1, oper2) {
+      return oper1 / oper2;
+    }
+
+
+    /**
+     * Функция выводит в консоль результат разных операций с двумя числами
+     * @function test
+     * @version 1.0.0
+     * @param {number} o1 - Первый операнд.
+     * @param {number} o2 - Второй операнд.
+     */
+    function test(o1, o2) {
+
+      console.log(`${o1}+${o2} = ${sum2(o1, o2)}`);
+      console.log(`${o1}-${o2} = ${diff2(o1, o2)}`);
+      console.log(`${o1}*${o2} = ${mult2(o1, o2)}`);
+      console.log(`${o1}\/${o2} = ${div2(o1, o2)}`);
+      console.log(`${o2}-${o1} = |${diff2(o2, o1)}|`);
+
+      alert(`ru: Результат выведен в консоль, клавиша F12.
+           \nen: Result in console. Please, press F12 key． 
+           \ncn: 结果在控制台.请按F12键．`);
+    }
+
+    test(9, 3);
+
+  </script>
+</body>
+
+</html>
