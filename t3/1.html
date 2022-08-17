@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Необходимо с помощью цикла for вывести следующие 11 строк в консоль:
+0 – это ноль
+1 – нечетное число
+2 – четное число
+3 – нечетное число
+…
+10 – четное число
+-->
+  <script>
+    "use strict";
+
+    for (let i = 0; i < 12; i++) {
+      if (i == 0) {
+        console.log(`0 - это ноль`);
+      } else if (i % 2 == 0) {
+        console.log(`${i} - четное число`);
+      } else {
+        console.log(`${i} - нечетное число`);
+      }
+    }
+
+
+    const arrMsg = [
+      'Нечетные и четные числа в консоли, клавиша F12',
+      'Odd and even numbers in console. Please, press F12 key',
+      '控制台 中的 奇数 和 偶数. 请 按 F12 键．',
+    ]
+
+    alert(arrMsg[1]);
+
+  </script>
+</body>
+
+</html>
