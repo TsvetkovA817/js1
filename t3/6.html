@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Необязательное задание.
+
+Необходимо вывести горку в консоль (используя цикл for), как показано на
+рисунке, только у вашей горки должно быть 20 рядов, а не 5:
+
+```
+x
+xx
+xxx
+xxxx
+xxxxx
+```
+
+Примечание: в трех косых кавычках ``` показан пример кода для вывода, вам эти
+кавычки выводить не нужно.
+-->
+  <script>
+    "use strict";
+
+    let str = '';
+    for (let index = 1; index < 21; index++) {
+      str += 'x';
+      console.log(str);
+    }
+
+
+    const arrMsg = [
+      'Результат выведен в консоль, клавиша F12.',
+      'Result in console. Please, press F12 key',
+      '结果 在 控制台. 请 按 F12 键．',
+    ]
+
+    let msg = '';
+    for (const iterator of arrMsg) {
+      msg += '\n' + iterator;
+    }
+
+    alert(msg);
+
+  </script>
+</body>
+
+</html>
