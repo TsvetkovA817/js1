@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для продукта.
+Названия: `ProductES5` для es5 стиля, `ProductES6` для es6 стиля.
+При создании объекта от функции-конструктора/класса необходимо передавать имя
+и цену товара, эта информация должна быть сохранена в объекте.
+Также у объекта должна быть возможность выполнить метод `make25Discount`, данный
+метод должен уменьшать стоимость продукта на 25%.
+Необходимо продемонстрировать работу с объектом (в свободной форме).
+-->
+  <script>
+    "use strict";
+
+    //-1-
+
+    function ProductES5(name, price) {
+      this.name = name;
+      this.price = price;
+    }
+
+    function make25Discount() {
+      this.price -= this.price * 0.25;
+    }
+    ProductES5.prototype.make25Discount = make25Discount;
+
+    //Использование
+
+    const product1 = new ProductES5('Товар1', 100);
+
+    console.log(product1.name);
+    console.log(product1.price);  //100
+    console.log(product1);
+
+    product1.make25Discount();
+    console.log(product1.price);  //75 
+
+    //-2-
+
+    class ProductES6 {
+      constructor(name, price) {
+        this.name = name;
+        this.price = price;
+      }
+      make25Discount() {
+        this.price -= this.price * 0.25;
+      }
+    }
+
+    function make75Discount() {
+      this.price -= this.price * 0.25;
+    }
+    ProductES6.prototype.make75Discount = make75Discount;
+
+    //Использование
+
+    const product2 = new ProductES6('Товар2', 200);
+
+    console.log(product2.name);
+    console.log(product2.price);  //200
+    console.log(product2);
+
+    product2.make25Discount();
+    console.log(product2.price);  //150
+    product2.price = 1000;
+    product2.make75Discount();
+    console.log(product2.price);  //750
+
+    // - end -
+
+    const oMsg = {
+      ru: 'Результат выведен в консоль, клавиша F12.',
+      en: 'Result in console. Please, press F12 key',
+      cn: '结果 在 控制台. 请 按 F12 键．',
+    }
+
+    let msg = '';
+    for (let el in oMsg) {
+      msg += '\n' + el + ': ' + oMsg[el];
+    }
+
+    alert(msg);
+
+  </script>
+</body>
+
+</html>

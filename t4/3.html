@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Необязательное задание.
+
+Необходимо создать функцию getDigitsOfNumber, которая принимает целое
+положительное число в диапазоне от 0 до 1000.
+Функция должна вернуть обычный объект с тремя свойствами:
+1. units - содержит число, количество единиц в параметре функции.
+2. dozens - содержит число, количество десятков в параметре функции.
+3. hundreds - содержит число, количество сотен в параметре функции.
+Если функции было передано не целое положительное число, либо число в ином
+диапазоне, нежели задано в условии, функция должна вывести в консоль информацию
+об ошибке и вернуть пустой объект.
+Необходимо также прописать jsdoc для данной функции.
+
+Подсказка:
+У объекта console есть разные методы, мы часто используем console.log для того
+чтобы вывести в консоль какое-то значение, однако есть и другие методы, найдите
+в интернете какие методы существуют и используйте "правильный метод" в нужном
+месте. Обратите внимание что функция не должна выбрасывать ошибку, она должна
+только вывести в консоль информацию о том, что что-то пошло не так.
+Обратите внимание на слова "от 0 до 1000", это означает диапазон [0, 999], что
+можно прочитать как "от нуля до 999 включительно".
+-->
+  <script>
+    "use strict";
+
+    //-1-
+
+    /**
+      * Функция возвращает объект с разрядами числа.
+      * @param {number} num - Число в диапазоне от 0 до 1000
+      * @returns {object} Объект с разрядами числа или пустой объект если ошибка.
+      * @example
+      * // returns {units: 9, dozens: 8, hundreds: 7}
+      * getDigitsOfNumber(789);
+      */
+    function getDigitsOfNumber(num) {
+      if (Number.isInteger(num) && num >= 0 && num < 1000) {
+        return {
+          units: num % 10,
+          dozens: Number.parseInt(num % 100 / 10),
+          hundreds: Number.parseInt(num / 100),
+        };
+      }
+      else {
+        console.error('Функция принимает только целые в диапазоне от 0 до 1000');
+        return {};
+      }
+    }
+
+    //Использование
+
+    console.log(getDigitsOfNumber(3));       //{units: 3, dozens: 0, hundreds: 0}
+    console.log(getDigitsOfNumber(null));    // {} 
+    console.log(getDigitsOfNumber(789));     // {units: 9, dozens: 8, hundreds: 7}
+    console.log(getDigitsOfNumber('456'));   // {}
+    console.log(getDigitsOfNumber(7.89));    // {} 
+    console.log(getDigitsOfNumber('7f9'));   // {} 
+    console.log(getDigitsOfNumber(-79));     // {} 
+    console.log(getDigitsOfNumber(NaN));     // {} 
+    console.log(getDigitsOfNumber('345\n789')); // {} 
+    console.log(getDigitsOfNumber(79));      // {units: 9, dozens: 7, hundreds: 0}
+    console.log(getDigitsOfNumber(9));       // {units: 9, dozens: 0, hundreds: 0} 
+    console.log(getDigitsOfNumber(0));       // {units: 0, dozens: 0, hundreds: 0}
+
+    console.log('-1- end');
+
+    //-2-
+
+    /**
+      * Функция возвращает объект с разрядами числа.
+      * @param {number|string} num - Число или строка с числовым значением в диапазоне от 0 до 1000
+      * @returns {object} Объект с разрядами числа или пустой объект если ошибка.
+      * @example
+      * // returns {units: 9, dozens: 8, hundreds: 7}
+      * getDigitsOfNumber('789');
+      */
+    function getDigitsOfNumber2(num) {
+      if (/^\d{1,3}$/.test(num)) {
+        return {
+          units: num % 10,
+          dozens: Number.parseInt(num % 100 / 10),
+          hundreds: Number.parseInt(num / 100),
+        };
+      }
+      else {
+        console.error('Функция принимает только целые в диапазоне от 0 до 1000');
+        return {};
+      }
+    }
+
+    //Использование
+
+    console.log(getDigitsOfNumber2(3));       //{units: 3, dozens: 0, hundreds: 0}
+    console.log(getDigitsOfNumber2(null));    // {} 
+    console.log(getDigitsOfNumber2(789));     // {units: 9, dozens: 8, hundreds: 7}
+    console.log(getDigitsOfNumber2('456'));   // {units: 6, dozens: 5, hundreds: 4}
+    console.log(getDigitsOfNumber2(7.89));    // {} 
+    console.log(getDigitsOfNumber2('7f9'));   // {} 
+    console.log(getDigitsOfNumber2(-79));     // {} 
+    console.log(getDigitsOfNumber2(NaN));     // {} 
+    console.log(getDigitsOfNumber2('345\n789')); // {} 
+    console.log(getDigitsOfNumber2(79));      // {units: 9, dozens: 7, hundreds: 0}
+    console.log(getDigitsOfNumber2(9));       // {units: 9, dozens: 0, hundreds: 0} 
+    console.log(getDigitsOfNumber2(0));       // {units: 0, dozens: 0, hundreds: 0}
+
+    console.log('-2- end');
+
+    //-3-
+
+    /**
+     *  Класс для работы с числами
+      * Метод checkNumStr проверяет строковое число от 0 до 999
+      * Метод checkNumDig проверяет число от 0 до 999
+      * Метод getDigitsOfNumber возвращает объект с разрядами числа.
+      * @param {number|string} num - Число или строка с числовым значением в диапазоне от 0 до 1000
+      * @returns {object} Объект с разрядами числа или пустой объект если ошибка.
+      * @example
+      * // returns {units: 9, dozens: 8, hundreds: 7}
+      * new Digital(789).getDigitsOfNumber()
+      */
+
+    class Digital {
+      constructor(num) {
+        this.num = num;
+        this.numIsOk = false;
+      }
+      checkNumStr(num = null) {   //0 - 999
+        if (num) { this.num = num; }
+        this.numIsOk = false;
+        if (/^\d{1,3}$/.test(this.num)) {
+          this.numIsOk = true;
+        }
+      }
+      checkNumDig(num = null) {  //0 - 999
+        if (num) { this.num = num; }
+        this.numIsOk = false;
+        if (Number.isInteger(this.num) && this.num >= 0 && this.num < 1000) {
+          this.numIsOk = true;
+        }
+      }
+      getDigitsOfNumber(num = null) {
+        if (num) { this.num = num; }
+        if (typeof (this.num) == Number) this.checkNumDig();
+        else this.checkNumStr();
+        if (this.numIsOk) {
+          return {
+            units: this.num % 10,
+            dozens: Number.parseInt(this.num % 100 / 10),
+            hundreds: Number.parseInt(this.num / 100),
+          };
+        }
+        else {
+          console.error('Функция принимает только целые в диапазоне от 0 до 1000');
+          return {};
+        }
+      }
+    }
+
+    //Использование
+
+    const d = new Digital(123);
+    console.log(d.getDigitsOfNumber());    //{units: 3, dozens: 2, hundreds: 1}
+    d.num = '456';
+    console.log(d.getDigitsOfNumber());    //{units: 6, dozens: 5, hundreds: 4}
+    console.log(d.getDigitsOfNumber(789)); //{units: 9, dozens: 8, hundreds: 7}
+
+    d.checkNumDig('2.3');
+    console.log(d.numIsOk);  //false
+    d.checkNumStr('23');
+    console.log(d.numIsOk);  //true
+    console.log(new Digital(123).getDigitsOfNumber()); //{units: 3, dozens: 2, hundreds: 1}
+
+    console.log('-3- end');
+
+    //-end-
+
+    const oMsg = {
+      ru: 'Результат выведен в консоль, клавиша F12.',
+      en: 'Result in console. Please, press F12 key',
+      cn: '结果 在 控制台. 请 按 F12 键．',
+    }
+
+    class Msg {
+      constructor(oMsg) {
+        this.oMsg = oMsg;
+      }
+      msgAll() {
+        let msg = '';
+        for (let el in this.oMsg) {
+          msg += '\n' + el + ': ' + this.oMsg[el];
+        }
+        return msg;
+      }
+    }
+    const s = new Msg(oMsg);
+    alert(s.msgAll());
+
+  </script>
+</body>
+
+</html>
