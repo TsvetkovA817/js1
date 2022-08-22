@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для поста в социальной сети.
+Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
+Пост должен хранить:
+1. Автора поста (имени достаточно).
+2. Текст поста.
+3. Дату и время последнего изменения поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
+менять текст поста.
+
+---
+
+Необходимо создать функцию-конструктор/класс для закрепленного поста в
+социальной сети.
+Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
+Закрепленный пост должен наследоваться от обычного поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
+будет лежать значение false (это свойство будет обозначать, будет ли наш
+закрепленный пост подсвечен).
+У экземпляров объекта закрепленного поста должен быть метод с названием
+`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
+(будет менять свойство `highlighted`).
+
+---
+
+Подсказки:
+1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
+2. Обратите внимание что пост хранит "дату и время последнего изменения
+поста", это значит что если пост кто-то изменит (например вызовет какой-то
+метод, который изменит что-то в посте), дата и время последнего изменения
+поста также должна измениться.
+3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
+что-нибудь пропустить.
+4. Если непонятно условие - задайте вопрос.
+-->
+  <script>
+    "use strict";
+
+    //-1-
+
+    function PostES5(autor, text) {
+      this.autor = autor;
+      this.text = text;
+      this.dateLastEdit = new Date();
+    }
+
+    function setDateLastEdit(newDate) {
+      this.dateLastEdit = newDate;
+    }
+
+    PostES5.prototype.setDateLastEdit = setDateLastEdit;
+
+    function edit(newtext) {
+      this.text = newtext;
+      this.setDateLastEdit(new Date());
+    }
+    PostES5.prototype.edit = edit;
+
+    //Использование
+
+    const dt1 = new Date();
+    dt1.setDate(dt1.getDate() - 5);
+    const post1 = new PostES5('Автор1', 'lorem ipsum 11');
+    post1.setDateLastEdit(dt1);
+
+    console.log(post1);
+    console.log(post1.dateLastEdit.toLocaleDateString());
+    post1.edit('lorem ipsum 12');
+    console.log(post1);
+    console.log(post1.dateLastEdit.toLocaleDateString());
+
+    //-2-
+
+    class PostES6 {
+
+      constructor(autor, text) {
+        this.autor = autor;
+        this.text = text;
+        this.dateLastEdit = new Date();
+      }
+      changeDateLastEdit(newDate) {
+        this.dateLastEdit = newDate;
+      }
+
+      edit(newtext) {
+        this.text = newtext;
+        this.changeDateLastEdit(new Date());
+      }
+
+    }
+
+    //Использование
+
+    const post2 = new PostES6('Автор2', 'lorem ipsum 21');
+    post2.changeDateLastEdit(dt1);
+    console.log(post2);
+    console.log(post2.dateLastEdit.toLocaleDateString());
+
+    post2.edit('lorem ipsum 22');
+    console.log(post2);
+    console.log(post2.dateLastEdit.toLocaleDateString());
+
+    //-3-
+
+    function AttachedPostES5(autor, text) {
+      PostES5.call(this, autor, text);
+      this.highlighted = false;
+    }
+
+    AttachedPostES5.prototype = Object.create(PostES5.prototype);
+    AttachedPostES5.prototype.constructor = AttachedPostES5;
+
+    AttachedPostES5.prototype.makeTextHighlighted = function () {
+      this.highlighted = true;
+      this.setDateLastEdit(new Date());
+    }
+
+    //Использование
+
+    const post3 = new AttachedPostES5('Автор3', 'lorem ipsum 31');
+    post3.setDateLastEdit(dt1);
+    console.log(post3);
+    console.log(post3.dateLastEdit.toLocaleDateString());
+
+    post3.makeTextHighlighted();
+    console.log(post3);
+    console.log(post3.dateLastEdit.toLocaleDateString());
+    console.log(post3.highlighted);
+
+    //-4-
+
+    class AttachedPostES6 extends PostES6 {
+      constructor(autor, text) {
+        super(autor, text);
+        this.highlighted = false;
+      }
+      makeTextHighlighted() {
+        this.highlighted = true;
+        this.changeDateLastEdit(new Date());
+      }
+      changeDateLastEdit(newDate) {
+        this.dateLastEdit = newDate;
+      }
+    }
+
+    //Использование
+
+    const post4 = new AttachedPostES6('Автор4', 'lorem ipsum 41');
+    post4.changeDateLastEdit(dt1);
+    console.log(post4);
+    console.log(post4.dateLastEdit.toLocaleDateString());
+
+    post4.makeTextHighlighted();
+    console.log(post4);
+    console.log(post4.dateLastEdit.toLocaleDateString());
+    console.log(post4.highlighted);
+
+
+    //-end-
+
+    class Msg {
+      constructor(ru, en, cn) {
+        this.ru = ru;
+        this.en = en;
+        this.cn = cn;
+      }
+      msgAll() {
+        let msg = '';
+        for (let el in this) {
+          msg += '\n' + el + ': ' + this[el];
+        }
+        return msg;
+      }
+    }
+
+    const ru = 'Результат выведен в консоль, клавиша F12.';
+    const en = 'Result in console. Please, press F12 key';
+    const cn = '结果 在 控制台. 请 按 F12 键．';
+
+    const s = new Msg(ru, en, cn);
+
+    alert(s.msgAll());
+
+
+  </script>
+</body>
+
+</html>
