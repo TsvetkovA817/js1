@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
+  <style>
+    .message {
+      width: 150px;
+      padding: 20px;
+      background: lightgoldenrodyellow;
+      border: 1px solid orange;
+      visibility: hidden;
+    }
+
+    .error {
+      border: 0.3rem solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+
+  <input id="from" type="text">
+  В инпуте написано: <span></span>
+
+  <br>
+
+  <button class="messageBtn">Показать блок</button>
+  <div class="message">
+    Привет :)
+  </div>
+
+  <br>
+
+  <form>
+    <label>
+      Первый инпут:
+      <input class="form-control" type="text">
+    </label>
+    <br>
+    <br>
+    <label>
+      Второй инпут:
+      <select class="form-control">
+        <option value=""></option>
+        <option value="1">Один</option>
+        <option value="2">Два</option>
+      </select>
+    </label>
+    <br>
+    <br>
+    <button>Отправить</button>
+  </form>
+
+  <script>
+    "use strict";
+
+    /*
+    1. При изменении значения в input с id="from", значение содержащееся в нем
+    должно моментально отображаться в span. То есть при печати в input'е тег span
+    также должен меняться.
+    */
+    const inEl = document.querySelector('#from');
+    const txEl = document.querySelector('span');
+    const f1 = () => { txEl.textContent = inEl.value; }
+    inEl.addEventListener('input', f1);
+
+    /*
+    2. При клике на кнопку с классом messageBtn необходимо элементу с классом
+    message:
+    1) добавить два класса: animate__animated и animate__fadeInLeftBig
+    2) поставить данному элементу стиль visibility в значение 'visible'.
+     */
+
+    const btnEl = document.querySelector('.messageBtn');
+    const msgEl = document.querySelector('.message');
+    btnEl.addEventListener('click', () => {
+      msgEl.classList.add('animate__animated', 'animate__fadeInLeftBig');
+      msgEl.style.visibility = "visible";
+    });
+
+
+    /*
+    3. Необходимо при отправке формы проверить, заполнены ли все поля в этой
+    форме. Если какое-либо поле не заполнено, форма не должна отправляться, также
+    должны быть подсвечены незаполненные поля (необходимо поставить класс error
+    незаполненным полям).
+    Как только пользователь начинает заполнять какое-либо поле, необходимо,
+    при вводе в данное поле, произвести проверку:
+    Если поле пустое, необходимо данное поле подсветить (поставить класс error
+    данному полю).
+    Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
+     */
+
+    //2 поля, выберем их методом browser-copy-selector:
+    const formEl = document.querySelector("form");
+    const inp1El = document.querySelector("form > label:nth-child(1) > input");
+    const inp2El = document.querySelector("form > label:nth-child(4) > select");
+    const bntEl2 = document.querySelector("form > button");
+
+    //поместим элементы в массив
+    const arrEls = [inp1El, inp2El];
+
+    //Другие способы  их получить 
+    /*
+    inp1El = document.querySelector("form input");  //получим первый    
+    //получим input c указанным номером пп в форме
+    inp1El = document.querySelector("form input:nth-of-type(1)");
+    inp2El = document.querySelector("form select"); //тоже первый
+    */
+
+    /*
+    //если много и указан класс
+    let arrEls = [];
+    document.querySelectorAll(".form-control").forEach(el => arrEls.push(el));
+    console.dir(arrEls);
+    */
+
+    /*
+    //если много и не указан класс
+    let arrEls = [];
+    document.querySelectorAll("form input").forEach(el => arrEls.push(el));
+    document.querySelectorAll("form select").forEach(el => arrEls.push(el));
+    console.dir(arrEls);
+    */
+
+    //указываем нужные тесты, разные тесты для разных полей
+    const arrNumTests = [
+      [1, 2, 3],          //номера тестов для 0 поля (inp1El)
+      [1]                 //для 1 поля (inp2El)
+    ];
+
+    const arrMsg = [
+      'Отправлено',
+      'Не заполнен реквизит',
+      'Не верно (длина)',
+      'Не верно (только цифры)',
+      'Ошибка заполнения формы',
+    ];
+
+    /**
+      * Класс проверки формы
+      * @param {object} formEl - форма
+      * @param {array}  arrEls - элементы
+      * @param {array}  arrNumTests - Номера проверок
+      * @param {array}  arrMsg - сообщения
+      * @example
+      * new checkForm(formEl, arrEls, arrNumTests, arrMsg).init();
+      */
+    class checkForm {
+      constructor(formEl, arrEls, arrNumTests, arrMsg) {
+        this.formEl = formEl;
+        this.arrEls = arrEls;
+        this.arrNumTests = arrNumTests;
+        this.arrMsg = arrMsg;
+      }
+      init() {
+        //Изменяем событие submit формы
+        this.formEl.addEventListener('submit', (event) => {
+          let err = 0;
+          for (const key in this.arrEls) {                       //循环
+            err = this.checkInput(this.arrEls[key], this.arrNumTests[key]);
+            if (err > 0) {
+              event.preventDefault();
+              this.arrEls[key].classList.add('error');
+              console.log(this.arrMsg[err]);
+            }
+          }
+        });
+        //Изменяем событие input полей ввода
+        for (const key in this.arrEls) {                         //循环
+          this.arrEls[key].addEventListener('input', () => {
+            if (this.arrEls[key].value === '') {                 //空的
+              this.arrEls[key].classList.add('error');
+            }
+            else {
+              this.arrEls[key].classList.remove('error');
+            }
+          });
+        }
+      }
+      /**
+         * Метод проверки элементов формы.
+         * @param {object} el - Проверемый элемент
+         * @param {array}  arrTests - Номера проверок
+         * @returns {number} Номер ошибки, 0 если нет ошибки 
+         * @example
+         * // returns 1,  если поле не заполнено
+         * err = checkInput(document.querySelector("input"), [1,2,3]);
+         */
+      checkInput(el, arrTests) {
+        let err = 0;
+        //1 проверка на заполненность                            //空的                     
+        if (arrTests.indexOf(1) !== -1 && el.value === '') {
+          err = 1;
+        }
+        //2 проверка на длину
+        else if (arrTests.indexOf(2) !== -1 && el.value.length < 3) {
+          err = 2;
+        }
+        //3 не верно, если в поле только цифры
+        else if (arrTests.indexOf(3) !== -1 && /^\d+$/.test(el.value)) {
+          err = 3;
+        }
+        return err;                                              //返回
+      }
+    }
+
+    //Использование
+    const mForm = new checkForm(formEl, arrEls, arrNumTests, arrMsg).init();
+
+  </script>
+</body>
+
+</html>
