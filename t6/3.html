@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+  <style>
+    i {
+      font-size: 50px;
+    }
+
+    .golden {
+      color: gold;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+
+  <div class="stars_container">
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+  </div>
+
+  <script>
+    "use strict";
+
+    /*
+    1. При наведении на любую из звезд, данной звезде должен ставиться класс
+    golden, также такой класс должен ставиться всем звездам до нее слева.
+    */
+    function F1_ver1(starsContainer) {
+      this.starsContainer = starsContainer;
+    }
+
+    function initF1() {
+      const starsEl = document.querySelector(this.starsContainer);
+      starsEl.addEventListener('mouseover', (event) => {
+        const currStar = event.target;
+        //включаем цвет у текущей звезды 
+        if (currStar.classList.contains('fa-star')) {
+          currStar.classList.add('golden');
+          //Слева всем ставим класс golden
+          let lStar = currStar.previousElementSibling;
+          while (lStar) {
+            if (!lStar.classList.contains('golden')) {
+              lStar.classList.add('golden');
+            }
+            lStar = lStar.previousElementSibling;
+          }
+        }
+      });
+    }
+
+    F1_ver1.prototype.init = initF1;
+
+    /**
+      * Класс для выставления оценки звездочками.
+      * @param {string} starsContainer - html селектор блока со звездочками
+      * @example
+      * const f3 = new F1_ver2('.stars_container').init();
+      */
+    class F1_ver2 {
+      constructor(starsContainer) {
+        this.starsContainer = starsContainer;
+      }
+      init() {
+        if (!this.starsContainer) {                             //空的
+          console.error('Селектор блока звездочек не указан');  //显示 讯息
+          return;                                               //返回
+        }
+        const starsEl = document.querySelector(this.starsContainer);
+        starsEl.addEventListener('mouseover', (event) => {      //鼠标 进入 
+          const currStar = event.target;
+          //Переключаем цвет. golden если был черный
+          if (currStar.classList.contains('fa-star')) {
+            currStar.classList.toggle('golden');
+            //Слева всем ставим класс golden
+            let lStar = currStar.previousElementSibling;
+            while (lStar) {
+              if (!lStar.classList.contains('golden')) {
+                lStar.classList.add('golden');
+              }
+              lStar = lStar.previousElementSibling;
+            }
+            //Справа у всех убираем golden
+            let rStar = currStar.nextElementSibling;
+            while (rStar) {
+              rStar.classList.remove('golden');
+              rStar = rStar.nextElementSibling;
+            }
+          }
+        });
+      }
+    }
+
+
+
+    /*
+    2. Когда мы уводим курсор мыши от звезды, все поставленные классы из первого
+    задания должны быть удалены.
+     */
+    function F2(starsContainer) {
+      this.starsContainer = starsContainer;
+    }
+
+    function initF2() {
+      const sEls = document.querySelector(this.starsContainer);
+      sEls.addEventListener('mouseout', (event) => {            //鼠标 出来
+        const currStar = event.target;
+        //выключаем цвет, если курсор не на звезде
+        if (currStar.classList.contains('fa-star')) {
+          currStar.classList.remove('golden');
+          //Слева всем выключаем класс golden
+          let lStar = currStar.previousElementSibling;
+          while (lStar) {
+            lStar.classList.remove('golden');
+            lStar = lStar.previousElementSibling;
+          }
+        }
+      });
+    }
+    F2.prototype.init = initF2;
+
+
+    //Использование:
+    const f1 = new F1_ver1('.stars_container').init();
+    const f2 = new F2('.stars_container').init();
+    //const f3 = new F1_ver2('.stars_container').init();
+
+
+
+    /*
+    3. Когда мы переводим мышь от одной звезды к другой, у нас могут мигать
+    звезды (временно могут становиться черными). Почему так? Напишите словами.
+    Можем ли мы это исправить? Если да, то предложите решение.
+    */
+    /*
+     - Там  промежуток между звездами, потому что строчный элемент,
+    и у обоих звезд срабатывает событие выхода из элемента. 
+    1) тегу i.style = display: block; 
+    2) использовать только одно событие mouseover (в f1_ver2)
+    
+    */
+
+  </script>
+</body>
+
+</html>
