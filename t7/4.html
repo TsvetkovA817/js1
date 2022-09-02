@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Необязательное задание.
+
+Необходимо реализовать функцию-конструктор Rectangle.
+-->
+  <script>
+    "use strict";
+
+    /**
+     * Returns the rectangle object with width and height parameters and
+     * getArea() method.
+     *
+     * @param {number} width - Rectangle width                 宽度
+     * @param {number} height - Rectangle height               长度
+     * @return {Rectangle}                                     返回 长方形  
+     */
+    function Rectangle(width = 0, height = 0) {
+      if (this.checkArg(width, height, true)) {
+        this.width = width;                                  //长方形 宽度
+        this.height = height;                                //长方形 长度 
+      }
+      else {
+        this.width = 0;                                      //为零
+        this.height = 0;                                     //为零
+      }
+      return this;
+    }
+    /**
+     * Вычисление площади                                      面积计算
+     * @param {boolean} isMsg - Выдывать сообщения или нет     
+     * @return {number}  Площадь                               返回面积 
+     */
+    Rectangle.prototype.getArea = function (isMsg = true) {
+      if (isMsg && (this.width === 0 || this.height === 0)) {
+        this.sendMsg(0);
+      }
+      if (isMsg && (this.width < 0 || this.height < 0)) {
+        this.sendMsg(2);
+      }
+      return Math.abs(this.width * this.height);
+    };
+    /**
+     * Проверка полученных значений
+     * @param {number} width - Rectangle width                   宽度
+     * @param {number} height - Rectangle height                 长度
+     * @param {boolean} isMsg - Выдывать сообщения или нет
+     * @return {boolean}  Ложь значения не верные, истина - ок
+     */
+    Rectangle.prototype.checkArg = function (width, height, isMsg = false) {
+      if (!(typeof (width) === 'number') || !(typeof (height) === 'number')) {
+        if (isMsg) {
+          this.sendMsg(1);
+        }
+        return false;
+      }
+      return true;
+    };
+
+    /**
+     * Выдать сообщение в консоль
+     * @param {number} numMsg - Номер сообщения
+     */
+    Rectangle.prototype.sendMsg = function (numMsg) {
+      const msg = [
+        'Получена длина или ширина = 0, площадь равна 0',
+        'Получены неверные значения длина или ширина',
+        'Получены отрицательное значение длины или ширины',
+      ];
+      console.error(msg[numMsg]);
+    };
+
+
+    //Использование
+
+    const r = new Rectangle(10, 20);
+    console.log(r.width); // 10
+    console.log(r.height); // 20
+    console.log(r.getArea()); // 200
+  </script>
+</body>
+
+</html>
